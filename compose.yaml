@@ -1,0 +1,20 @@
+name: app_intelligence
+services:
+  django:
+    container_name: app-intelligence-web
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-}
+    volumes:
+      - .:/var/www/html
+      - vscode-home:/home/developer
+    init: true
+    restart: unless-stopped
+    mem_limit: 1g
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+volumes:
+  vscode-home:
+    name: app_intelligence_web-home
